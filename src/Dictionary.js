@@ -1,24 +1,26 @@
 import React, {useState} from "react";
 import "./dictionary.css"
 import axios from "axios";
-import { https } from "follow-redirects";
+import Results from "./Results";
+
 
 export default function DictionarySearch(){
     let [keyword, setKeyword]=useState("");
+    let [results, setResults]=useState("");
     
     function handleKeyword(event){
-
-setKeyword(event.target.value);
+       setKeyword(event.target.value);
     }
 
     function search(event){
 event.preventDefault();
 
 function handleResponse(response){
-console.log(response.data[0]);
+console.log(response.data);
+setResults(response.data[0]);
 }
 
-let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyWord}`;    
+let apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${keyword}`;    
 axios.get(apiUrl).then(handleResponse);
 }
     
@@ -27,6 +29,7 @@ axios.get(apiUrl).then(handleResponse);
             <form onSubmit={search}>
                 <input type="search" onChange={handleKeyword}/>
             </form>
+            <Results results={results}/>
         </div>
-    )
+    );  
 }
