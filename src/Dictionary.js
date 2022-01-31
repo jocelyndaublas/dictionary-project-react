@@ -16,7 +16,6 @@ export default function DictionarySearch(){
 event.preventDefault();
 
 function handleResponse(response){
-console.log(response.data);
 setResults(response.data[0]);
 }
 
